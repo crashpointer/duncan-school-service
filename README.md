@@ -26,5 +26,5 @@ mvn spring-boot:run
 mvn clean package
 
 #### Test project
-http://localhost:8080 <br />
+Click the http://localhost:8080 <br />
 Then go to register page
