@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Duncan's school service</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/font-awesome.min.css}" />
+</head>
+
+<body>
+	<th:block th:include="view/navbar"></th:block>
+
+	<div class="container">
+
+		<div class="panel-group" style="margin-top: 40px">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="panel-title pull-left">
+						<span th:utext="${userName}"></span>
+					</div>
+					<div class="panel-title pull-right">
+						<a th:href="@{'/duncan' + ${toolbarList}}" title="List"><i class="fa fa-list" aria-hidden="true"></i></a>
+						<a th:href="@{'/duncan' + ${toolbarNew}}" title="New"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-body">
+					<th:block th:include="@{'view/' + ${page}}"></th:block>
+				</div>
+				<p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

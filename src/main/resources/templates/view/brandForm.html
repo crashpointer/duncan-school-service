@@ -1,0 +1,19 @@
+<div class="col-md-12 col-sm-12">
+	<form autocomplete="off" action="#"
+		th:action="@{'/duncan/brand' + ${link}}" th:object="${brand}"
+		method="post" class="form-horizontal" role="form">
+		<div class="form-group">
+			<div class="col-md-9 col-sm-9">
+				<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+					class="validation-message"></label> <input type="text"
+					th:field="*{name}" placeholder="Name" class="form-control"
+					required="" />
+			</div>
+			<div class="col-md-3 col-sm-9">
+				<button type="submit" class="btn btn-primary btn-block">Save</button>
+			</div>
+		</div>
+
+		<span class="success-message" th:utext="${successMessage}"></span>
+	</form>
+</div>

@@ -1,0 +1,34 @@
+<div class="col-md-12 col-sm-12">
+	<form autocomplete="off" action="#" th:action="@{/duncan/brand}"
+		th:object="${brand}" method="post" class="form-horizontal" role="form">
+		<div class="form-group">
+			<div class="col-md-9 col-sm-9">
+				<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+					class="validation-message"></label> <input type="text"
+					th:field="*{name}" placeholder="Brand Name" class="form-control" required="" />
+			</div>
+			<div class="col-md-3 col-sm-9">
+				<button type="submit" class="btn btn-primary btn-block">Search</button>
+			</div>
+		</div>
+
+	</form>
+	<table class="table">
+		<thead>
+			<th width="20%">No</th>
+			<th width="60%">Brand</th>
+			<th width="20%"></th>
+		</thead>
+		<tbody>
+			<tr th:each="brand : ${list}">
+				<td th:text="${brand.id}"></td>
+				<td th:text="${brand.name}"></td>
+				<td><a th:href="@{'/duncan/brand/update/' + ${brand.id}}"> <i
+						class="fa fa-pencil-square" aria-hidden="true"></i>
+				</a> <a th:href="@{'/duncan/brand/remove/' + ${brand.id}}"> <i
+						class="fa fa-minus-square" aria-hidden="true"></i>
+				</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
