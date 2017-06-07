@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import org.duncan.dao.IVehicleDAO;
 import org.duncan.entity.Vehicle;
 
+/**
+ * @author crash pointer
+ * <p>provides bridge between controller and database access object.</p>
+ */
 @Service
 public class VehicleService implements IVehicleService {
 
@@ -29,7 +33,7 @@ public class VehicleService implements IVehicleService {
         if (vehicleDAO.vehicleExists(vehicle.getNickname(), vehicle.getPlate())) {
             return false;
         } else {
-            vehicleDAO.addVehicle(vehicle);
+            vehicleDAO.saveVehicle(vehicle);
             return true;
         }
 	}

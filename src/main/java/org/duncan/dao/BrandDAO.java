@@ -29,7 +29,7 @@ public class BrandDAO implements IBrandDAO{
 	}
 
 	@Override
-	public void addBrand(Brand brand) {
+	public void saveBrand(Brand brand) {
 		entityManager.persist(brand);
 	}
 
@@ -57,7 +57,7 @@ public class BrandDAO implements IBrandDAO{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Brand> findBrandByName(String name) {
+	public List<Brand> findBrand(String name) {
 		String hql = "FROM Brand as b WHERE lower(b.name) like lower(?) ORDER BY b.name asc";
 		return (List<Brand>) entityManager.createQuery(hql)
 				.setParameter(1, "%" + name + "%")

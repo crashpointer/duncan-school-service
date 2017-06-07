@@ -5,7 +5,7 @@ import java.util.List;
 import org.duncan.entity.Brand;
 
 public interface IBrandService {
-	public List<Brand> findBrandByName(String name);
+	public List<Brand> findBrand(String name);
 	public List<Brand> getAllBrands();
 	public Brand getBrandById(int id);
 	public boolean saveBrand(Brand brand);

@@ -14,8 +14,8 @@ public class BrandService implements IBrandService {
 	private IBrandDAO brandDAO;
 
 	@Override
-	public List<Brand> findBrandByName(String name) {
-		return brandDAO.findBrandByName(name);
+	public List<Brand> findBrand(String name) {
+		return brandDAO.findBrand(name);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class BrandService implements IBrandService {
 		if(brandDAO.brandExists(brand.getName()))
 			return false;
 		
-		brandDAO.addBrand(brand);
+		brandDAO.saveBrand(brand);
 		return true;
 	}
 	

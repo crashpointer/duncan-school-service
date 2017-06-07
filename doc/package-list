@@ -1,0 +1,7 @@
+org.duncan
+org.duncan.configuration
+org.duncan.controller
+org.duncan.dao
+org.duncan.entity
+org.duncan.repository
+org.duncan.service

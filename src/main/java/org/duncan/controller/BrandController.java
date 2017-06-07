@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author ceren
- *
+ * @author crash pointer
+ * 
  */
 @Controller
 @RequestMapping("/duncan")
 public class BrandController {
 	
+	/**
+	 * 
+	 */
 	@Autowired
 	private BrandService brandService;
 	
@@ -43,7 +46,7 @@ public class BrandController {
 	@RequestMapping(value = "/brand", method = RequestMethod.POST)
 	public ModelAndView searchBrand(@Valid Brand brand, BindingResult bindingResult){
 		if(!bindingResult.hasErrors()){
-			modelAndView.addObject("list", brandService.findBrandByName(brand.getName()));
+			modelAndView.addObject("list", brandService.findBrand(brand.getName()));
 		} else{
 			modelAndView.addObject("list", brandService.getAllBrands());
 		}

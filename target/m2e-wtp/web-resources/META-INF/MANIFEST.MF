@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: Duncan School Service
 Implementation-Version: 1.0
-Built-By: ceren
+Built-By: root
 Implementation-Vendor-Id: org.springframework.boot
 Build-Jdk: 1.8.0_121
 Implementation-URL: https://www.duncan-school-service.com

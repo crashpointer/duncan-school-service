@@ -31,7 +31,7 @@ public class VehicleDAO implements IVehicleDAO {
 	}
 
 	@Override
-	public void addVehicle(Vehicle vehicle) {
+	public void saveVehicle(Vehicle vehicle) {
 		entityManager.persist(vehicle);
 	}
 
