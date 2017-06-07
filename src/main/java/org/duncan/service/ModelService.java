@@ -7,6 +7,10 @@ import org.duncan.entity.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author ceren
+ *
+ */
 @Service
 public class ModelService implements IModelService {
 	
@@ -34,13 +38,13 @@ public class ModelService implements IModelService {
 	}
 
 	@Override
-	public List<Model> findModelByNameWithBrandId(String name, int brandId) {
-		return modelDAO.findModelByNameWithBrandId(name, brandId);
+	public List<Model> findModel(String name, int brandId) {
+		return modelDAO.findModel(name, brandId);
 	}
 
 	@Override
 	public void saveModel(Model model) {
-		modelDAO.addModel(model);
+		modelDAO.saveModel(model);
 	}
 
 	@Override

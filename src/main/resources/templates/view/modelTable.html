@@ -6,7 +6,7 @@
 				<input type="text" th:field="*{name}" placeholder="Model Name" class="form-control" />
 			</div>
 			<div class="col-md-3 col-sm-9">
-				<select th:field="*{brandId}" placeholder="Brand" class="form-control">
+				<select th:field="*{brand.id}" placeholder="Brand" class="form-control">
 					<option value="0">Choose Brand</option>
 					<option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
 				</select>
@@ -20,13 +20,15 @@
 	<table class="table">
 		<thead>
 			<th width="10%">No</th>
-			<th width="60%">Model</th>
+			<th width="50%">Model</th>
+			<th width="30%">Brand</th>
 			<th width="10%"></th>
 		</thead>
 		<tbody>
 			<tr th:each="model : ${models}">
 				<td th:text="${model.id}"></td>
 				<td th:text="${model.name}"></td>
+				<td th:text="${model.brand.name}"></td>
 				<td><a th:href="@{'/duncan/model/update/' + ${model.id}}"> <i
 						class="fa fa-pencil-square" aria-hidden="true"></i>
 				</a> <a th:href="@{'/duncan/model/remove/' + ${model.id}}"> <i

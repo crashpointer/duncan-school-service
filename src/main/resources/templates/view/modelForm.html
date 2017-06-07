@@ -7,8 +7,8 @@
 				th:field="*{name}" placeholder="Model Name" class="form-control" required="" />
 		</div>
 		<div class="col-md-3 col-sm-9">
-			<label th:if="${#fields.hasErrors('brandId')}" th:errors="*{brandId}"
-				class="validation-message"></label> <select th:field="*{brandId}"
+			<label th:if="${#fields.hasErrors('brand')}" th:errors="*{brand.id}"
+				class="validation-message"></label> <select th:field="*{brand.id}"
 				placeholder="Brand" class="form-control" required="" >
 				<option th:each="brand : ${brands}" th:value="${brand.id}"
 					th:text="${brand.name}"></option>

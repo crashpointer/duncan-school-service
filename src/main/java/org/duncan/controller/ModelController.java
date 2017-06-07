@@ -43,14 +43,10 @@ public class ModelController {
 	
 	@RequestMapping(value = "/model", method = RequestMethod.POST)
 	public ModelAndView searchBrand(@Valid Model model, BindingResult bindingResult){
-		if(!model.getName().isEmpty() || model.getBrandId() > 0){
-			if(model.getBrandId() != 0){
-				modelAndView.addObject("models", modelService.findModelByNameWithBrandId(model.getName(), model.getBrandId()));
-			} else{
-				modelAndView.addObject("models", modelService.findModelByName(model.getName()));
-			}
+		if(model.getBrand().getId() > 0){
+			modelAndView.addObject("models", modelService.findModel(model.getName(), model.getBrand().getId()));
 		} else{
-			modelAndView.addObject("models", modelService.getAllModels());
+			modelAndView.addObject("models", modelService.findModelByName(model.getName()));
 		}
 		
 		modelAndView.addObject("model", model);

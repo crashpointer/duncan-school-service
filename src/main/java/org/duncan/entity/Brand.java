@@ -21,7 +21,7 @@ public class Brand {
 	@Column(name = "name")
 	@NotEmpty(message = "*Please provide brand name")
 	private String name;
-
+	
 	public int getId() {
 		return id;
 	}

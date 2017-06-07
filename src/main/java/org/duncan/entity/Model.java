@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,13 +20,14 @@ public class Model {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="brand_id")
-	private int brandId;
-	
 	@Column(name="name")
 	@NotEmpty(message="*Please provide model name")
+	@Size(min=1, max=128, message="*The model name must be at least 2 characters")
 	private String name;
 	
+	@ManyToOne
+	private Brand brand;
+
 	public int getId() {
 		return id;
 	}
@@ -41,12 +44,12 @@ public class Model {
 		this.name = name;
 	}
 	
-	public int getBrandId(){
-		return brandId;
+	public Brand getBrand(){
+		return brand;
 	}
 	
-	public void setBrandId(int brandId){
-		this.brandId = brandId;
+	public void setBrand(Brand brand){
+		this.brand = brand;
 	}
 	
 }

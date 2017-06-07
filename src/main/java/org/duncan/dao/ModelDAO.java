@@ -19,7 +19,7 @@ public class ModelDAO implements IModelDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Model> getAllModels() {
-		String hql = "FROM Model as m ORDER BY m.id desc";
+		String hql = "SELECT m FROM Model as m JOIN FETCH m.brand ORDER BY m.id desc";
 		return (List<Model>) entityManager.createQuery(hql).setMaxResults(30).getResultList();
 	}
 
@@ -31,7 +31,7 @@ public class ModelDAO implements IModelDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Model> getModelListByBrandId(int brandId) {
-		String hql = "FROM Model as m WHERE m.brandId = ? ORDER BY m.id desc";
+		String hql = "FROM Model as JOIN FETCH m.brand WHERE m.brand.id = ? ORDER BY m.id desc";
 		return (List<Model>) entityManager.createQuery(hql)
 				.setParameter(1, brandId)
 				.setMaxResults(30)
@@ -49,7 +49,8 @@ public class ModelDAO implements IModelDAO {
 	}
 
 	@Override
-	public void addModel(Model model) {
+	public void saveModel(Model model) {
+		System.out.println(String.format("%d : %s", model.getBrand().getId(), model.getBrand().getName()));
 		entityManager.persist(model);
 	}
 
@@ -57,7 +58,7 @@ public class ModelDAO implements IModelDAO {
 	public void updateModel(Model model) {
 		Model m = getModelById(model.getId());
 		m.setName(model.getName());
-		m.setBrandId(model.getBrandId());
+		m.setBrand(model.getBrand());
 		entityManager.flush();
 	}
 
@@ -68,8 +69,8 @@ public class ModelDAO implements IModelDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Model> findModelByNameWithBrandId(String name, int brandId) {
-		String hql = "FROM Model as m WHERE m.brandId = ? and lower(m.name) like lower(?)";
+	public List<Model> findModel(String name, int brandId) {
+		String hql = "FROM Model as m WHERE m.brand.id = ? and lower(m.name) like lower(?)";
 		return (List<Model>) entityManager.createQuery(hql)
 				.setParameter(1, brandId)
 				.setParameter(2, "%" + name + "%")
