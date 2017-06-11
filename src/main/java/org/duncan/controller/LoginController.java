@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * @author crash pointer
+ * <p>Controller layer for brand processes.</p>
+ */
 @Controller
 public class LoginController {
 

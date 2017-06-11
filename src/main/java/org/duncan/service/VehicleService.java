@@ -9,7 +9,7 @@ import org.duncan.entity.Vehicle;
 
 /**
  * @author crash pointer
- * <p>provides bridge between controller and database access object.</p>
+ * <p>Provides bridge between controller and database access layer.</p>
  */
 @Service
 public class VehicleService implements IVehicleService {
@@ -49,28 +49,13 @@ public class VehicleService implements IVehicleService {
 	}
 
 	@Override
-	public List<Vehicle> findVehicleByNicknameWithPlate(String nickname, String plate) {
-		return vehicleDAO.findVehicleByNicknameWithPlate(nickname, plate);
-	}
-
-	@Override
-	public List<Vehicle> findVehicleByNickname(String nickname) {
-		return vehicleDAO.findVehicleByNickname(nickname);
-	}
-
-	@Override
-	public List<Vehicle> findVehicleByModelId(String nickname, String plate, int modelId) {
-		return vehicleDAO.findVehicleByModelId(nickname, plate, modelId);
-	}
-
-	@Override
-	public List<Vehicle> findVehicleByTypeOfVehicle(String nickname, String plate, byte typeId) {
-		return vehicleDAO.findVehicleByTypeOfVehicle(nickname, plate, typeId);
-	}
-
-	@Override
 	public List<Vehicle> findVehicle(String nickname, String plate, int modelId, byte typeId) {
 		return vehicleDAO.findVehicle(nickname, plate, modelId, typeId);
+	}
+
+	@Override
+	public boolean vehicleExists(String nickname, String plate) {
+		return vehicleDAO.vehicleExists(nickname, plate);
 	}
 
 }

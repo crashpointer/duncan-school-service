@@ -9,6 +9,10 @@ import org.duncan.entity.Brand;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author crash pointer
+ * <p>Implements all methods of interface brand database access.</p> 
+ */
 @Transactional
 @Repository
 public class BrandDAO implements IBrandDAO{
@@ -20,7 +24,9 @@ public class BrandDAO implements IBrandDAO{
 	@Override
 	public List<Brand> getAllBrands() {
 		String hql = "FROM Brand as b ORDER BY b.id desc";
-		return (List<Brand>) entityManager.createQuery(hql).setMaxResults(30).getResultList();
+		return (List<Brand>) entityManager.createQuery(hql)
+				.setMaxResults(30)
+				.getResultList();
 	}
 
 	@Override
@@ -47,18 +53,18 @@ public class BrandDAO implements IBrandDAO{
 
 	@Override
 	public boolean brandExists(String name) {
-		String hql = "FROM Brand as b WHERE b.name = ?";
+		String hql = "FROM Brand as b WHERE lower(b.name) = lower(?)";
 		int count = entityManager.createQuery(hql)
 				.setParameter(1, name)
 				.getResultList().size();
 
-		return count > 0 ? true : false;
+		return count != 0;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Brand> findBrand(String name) {
-		String hql = "FROM Brand as b WHERE lower(b.name) like lower(?) ORDER BY b.name asc";
+		String hql = "FROM Brand as b WHERE lower(b.name) like lower(?) ORDER BY b.id desc";
 		return (List<Brand>) entityManager.createQuery(hql)
 				.setParameter(1, "%" + name + "%")
 				.setMaxResults(30)

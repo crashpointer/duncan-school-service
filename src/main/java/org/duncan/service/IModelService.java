@@ -5,13 +5,13 @@ import java.util.List;
 import org.duncan.entity.Model;
 
 /**
- * @author ceren
- *
+ * @author crash pointer
+ * <p>Provides bridge between controller and database access layer.</p>
  */
 public interface IModelService {
 	
 	/**
-	 * @return List<Model>
+	 * @return List
 	 */
 	public List<Model> getAllModels();
 	
@@ -23,20 +23,14 @@ public interface IModelService {
 	
 	/**
 	 * @param brandId
-	 * @return List<Model>
+	 * @return List
 	 */
 	public List<Model> getModelListByBrandId(int brandId);
 	
 	/**
 	 * @param name
-	 * @return List<Model>
-	 */
-	public List<Model> findModelByName(String name);
-	
-	/**
-	 * @param name
 	 * @param brandId
-	 * @return
+	 * @return List
 	 */
 	public List<Model> findModel(String name, int brandId);
 	
@@ -54,4 +48,5 @@ public interface IModelService {
 	 * @param id
 	 */
 	public void deleteModel(int id);
+	
 }

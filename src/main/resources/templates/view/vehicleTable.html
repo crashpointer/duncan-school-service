@@ -9,9 +9,9 @@
 				<input type="text" th:field="*{plate}" placeholder="Plate" class="form-control" />
 			</div>
 			<div class="col-md-2 col-sm-9">
-				<select th:field="*{modelId}" placeholder="Model" class="form-control">
+				<select th:field="*{model.id}" placeholder="Model" class="form-control">
 					<option value="0">Choose Model</option>
-					<option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}"></option>
+					<option th:each="model : ${models}" th:value="${model.id}" th:text="${model.brand.name} + ' ' + ${model.name}"></option>
 				</select>
 			</div>
 			<div class="col-md-2 col-sm-9">
@@ -45,7 +45,7 @@
 				<td th:text="${vehicle.nickname}"></td>
 				<td th:text="${vehicle.plate}"></td>
 				<td th:text="${vehicle.year}"></td>
-				<td><div class="circle" th:style="'background-color:' + ${vehicle.color} + ';'"></div></td>
+				<td><i class="fa fa-bus" aria-hidden="true" th:style="'color:' + ${vehicle.color} + '; font-size: 24px;'"></i></td>
 				<td><div class="circle" th:classappend="${vehicle.active} ? green : red"></div></td>
 				<td><a th:href="@{'/duncan/vehicle/update/' + ${vehicle.id}}"> <i
 						class="fa fa-pencil-square" aria-hidden="true"></i>

@@ -11,11 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author crash pointer
- * <h3>ModelDAO Class</h3>
- * <p>
- * This class is a database access object.
- * It implements all methods of IModelDAO class.
- * </p>
+ * <p>Implements all methods of interface model database access.</p>
  */
 @Transactional
 @Repository
@@ -28,7 +24,9 @@ public class ModelDAO implements IModelDAO {
 	@Override
 	public List<Model> getAllModels() {
 		String hql = "SELECT m FROM Model as m JOIN FETCH m.brand ORDER BY m.id desc";
-		return (List<Model>) entityManager.createQuery(hql).setMaxResults(30).getResultList();
+		return (List<Model>) entityManager.createQuery(hql)
+				.setMaxResults(30)
+				.getResultList();
 	}
 
 	@Override
@@ -42,16 +40,6 @@ public class ModelDAO implements IModelDAO {
 		String hql = "FROM Model as m JOIN FETCH m.brand WHERE m.brand.id = ? ORDER BY m.id desc";
 		return (List<Model>) entityManager.createQuery(hql)
 				.setParameter(1, brandId)
-				.setMaxResults(30)
-				.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Model> findModelByName(String name) {
-		String hql = "FROM Model as m JOIN FETCH m.brand WHERE lower(m.name) like lower(?) ORDER BY m.name asc";
-		return (List<Model>) entityManager.createQuery(hql)
-				.setParameter(1, "%" + name + "%")
 				.setMaxResults(30)
 				.getResultList();
 	}
@@ -77,10 +65,16 @@ public class ModelDAO implements IModelDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Model> findModel(String name, int brandId) {
-		String hql = "FROM Model as m JOIN FETCH m.brand WHERE m.brand.id = ? and lower(m.name) like lower(?)";
+		String hql = "FROM Model as m JOIN FETCH m.brand WHERE lower(m.name) like lower(?) %s ORDER BY m.id desc";
+		if(brandId > 0){
+			hql = String.format(hql, "and m.brand.id = ?");
+		} else{
+			hql = String.format(hql, "and (m.brand.id = ? or 1=1)");
+		}
+		
 		return (List<Model>) entityManager.createQuery(hql)
-				.setParameter(1, brandId)
-				.setParameter(2, "%" + name + "%")
+				.setParameter(1, "%" + name + "%")
+				.setParameter(2, brandId)
 				.setMaxResults(30)
 				.getResultList();
 	}

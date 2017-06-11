@@ -2,6 +2,9 @@
 	<form autocomplete="off" action="#"
 		th:action="@{'/duncan/brand' + ${link}}" th:object="${brand}"
 		method="post" class="form-horizontal" role="form">
+		
+		<span class="success-message" th:utext="${successMessage}"></span>	
+		
 		<div class="form-group">
 			<div class="col-md-9 col-sm-9">
 				<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
@@ -14,6 +17,5 @@
 			</div>
 		</div>
 
-		<span class="success-message" th:utext="${successMessage}"></span>
 	</form>
 </div>

@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * @author crash pointer
+ * <p>Controller layer for model processes.</p>
+ */
 @Controller
 @RequestMapping("/duncan")
 public class ModelController {
@@ -27,6 +31,7 @@ public class ModelController {
 
 	public ModelController() {
 		modelAndView = new ModelAndView();
+		modelAndView.addObject("pageTitle", "Model");
 		modelAndView.addObject("toolbarList", "/model");
 		modelAndView.addObject("toolbarNew", "/model/new");
 		modelAndView.setViewName("home");
@@ -43,12 +48,7 @@ public class ModelController {
 	
 	@RequestMapping(value = "/model", method = RequestMethod.POST)
 	public ModelAndView searchBrand(@Valid Model model, BindingResult bindingResult){
-		if(model.getBrand().getId() > 0){
-			modelAndView.addObject("models", modelService.findModel(model.getName(), model.getBrand().getId()));
-		} else{
-			modelAndView.addObject("models", modelService.findModelByName(model.getName()));
-		}
-		
+		modelAndView.addObject("models", modelService.findModel(model.getName(), model.getBrand().getId()));
 		modelAndView.addObject("model", model);
 		modelAndView.addObject("page", "modelTable");
 		return modelAndView;

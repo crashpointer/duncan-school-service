@@ -18,9 +18,7 @@ public class Application extends SpringBootServletInitializer{
 	}
 
 	/**
-	 * <p>
-	 * It is main method of the project. Firstly, That method is executed.
-	 * </p>
+	 * <p>It is main method of the project. Firstly, That method is executed.</p>
 	 * @param args
 	 * @throws Exception
 	 */

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author ceren
- *
+ * @author crash pointer
+ * <p>Provides bridge between controller and database access layer.</p>
  */
 @Service
 public class ModelService implements IModelService {
@@ -30,11 +30,6 @@ public class ModelService implements IModelService {
 	@Override
 	public List<Model> getModelListByBrandId(int brandId) {
 		return modelDAO.getModelListByBrandId(brandId);
-	}
-
-	@Override
-	public List<Model> findModelByName(String name) {
-		return modelDAO.findModelByName(name);
 	}
 
 	@Override

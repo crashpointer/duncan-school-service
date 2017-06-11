@@ -2,8 +2,14 @@
 	<form autocomplete="off" action="#"
 		th:action="@{'/duncan/vehicle' + ${link}}" th:object="${vehicle}"
 		method="post" class="form-horizontal" role="form">
+
+		<span class="success-message" th:utext="${successMessage}"></span>
+
 		<div class="form-group">
-			<div class="col-md-8 col-sm-9">
+			<div class="col-md-2 col-sm-9">
+				<label>Nickname</label>
+			</div>
+			<div class="col-md-7 col-sm-9">
 				<label th:if="${#fields.hasErrors('nickname')}"
 					th:errors="*{nickname}" class="validation-message"></label> <input
 					type="text" th:field="*{nickname}" placeholder="Nickname"
@@ -12,26 +18,35 @@
 		</div>
 
 		<div class="form-group">
+			<div class="col-md-2 col-sm-9">
+				<label>Plate</label>
+			</div>
 			<div class="col-md-6 col-sm-9">
 				<label th:if="${#fields.hasErrors('plate')}" th:errors="*{plate}"
 					class="validation-message"></label> <input type="text"
-					th:field="*{plate}" placeholder="Plate" class="form-control"
+					th:field="*{plate}" placeholder="Plate (Ex: 34IS69)" class="form-control"
 					required="" />
 			</div>
 		</div>
 
 		<div class="form-group">
+			<div class="col-md-2 col-sm-9">
+				<label>Model</label>
+			</div>
 			<div class="col-md-5 col-sm-9">
-				<label th:if="${#fields.hasErrors('modelId')}"
-					th:errors="*{modelId}" class="validation-message"></label> <select
-					th:field="*{modelId}" placeholder="Model" class="form-control">
+				<label th:if="${#fields.hasErrors('model')}" th:errors="*{model}"
+					class="validation-message"></label> <select th:field="*{model.id}"
+					placeholder="Model" class="form-control">
 					<option th:each="model : ${models}" th:value="${model.id}"
-						th:text="${model.name}"></option>
+						th:text="${model.brand.name} + ' ' + ${model.name}"></option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
+			<div class="col-md-2 col-sm-9">
+				<label>Type</label>
+			</div>
 			<div class="col-md-4 col-sm-9">
 				<label th:if="${#fields.hasErrors('typeOfVehicle')}"
 					th:errors="*{typeOfVehicle}" class="validation-message"></label> <select
@@ -45,15 +60,21 @@
 		</div>
 
 		<div class="form-group">
+			<div class="col-md-2 col-sm-9">
+				<label>Year</label>
+			</div>
 			<div class="col-md-3 col-sm-9">
 				<label th:if="${#fields.hasErrors('year')}" th:errors="*{year}"
 					class="validation-message"></label> <input type="number"
 					th:field="*{year}" placeholder="Year" class="form-control"
-					required="" min="1990" />
+					required="" />
 			</div>
 		</div>
 
 		<div class="form-group">
+			<div class="col-md-2 col-sm-9">
+				<label>Color</label>
+			</div>
 			<div class="col-md-3 col-sm-9">
 				<label th:if="${#fields.hasErrors('color')}" th:errors="*{color}"
 					class="validation-message"></label> <input type="color"
@@ -64,18 +85,18 @@
 
 		<div class="form-group">
 			<div class="col-md-2 col-sm-9">
-				<label> <input type="checkbox" th:field="*{active}"
-					class="form-control" />Active
-				</label>
+				<label>Active</label>
+			</div>
+			<div class="col-md-2 col-sm-9">
+				<input type="checkbox" th:field="*{active}" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<div class="col-md-2 col-sm-9">
-				<button type="submit" class="btn btn-primary btn-block">Save</button>
+			<div class="col-md-9 col-sm-9">
+				<button type="submit" class="btn btn-primary btn-block" style="float: right">Save</button>
 			</div>
 		</div>
 
-		<span class="success-message" th:utext="${successMessage}"></span>
 	</form>
 </div>

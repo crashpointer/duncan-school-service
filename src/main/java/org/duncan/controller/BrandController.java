@@ -20,9 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/duncan")
 public class BrandController {
 	
-	/**
-	 * 
-	 */
 	@Autowired
 	private BrandService brandService;
 	
@@ -30,6 +27,7 @@ public class BrandController {
 	
 	public BrandController() {
 		modelAndView = new ModelAndView();
+		modelAndView.addObject("pageTitle", "Brand");
 		modelAndView.addObject("toolbarList", "/brand");
 		modelAndView.addObject("toolbarNew", "/brand/new");
 		modelAndView.setViewName("home");
@@ -45,12 +43,7 @@ public class BrandController {
 	
 	@RequestMapping(value = "/brand", method = RequestMethod.POST)
 	public ModelAndView searchBrand(@Valid Brand brand, BindingResult bindingResult){
-		if(!bindingResult.hasErrors()){
-			modelAndView.addObject("list", brandService.findBrand(brand.getName()));
-		} else{
-			modelAndView.addObject("list", brandService.getAllBrands());
-		}
-		
+		modelAndView.addObject("list", brandService.findBrand(brand.getName()));
 		modelAndView.addObject("brand", brand);
 		modelAndView.addObject("page", "brandTable");
 		return modelAndView;

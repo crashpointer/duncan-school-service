@@ -6,47 +6,36 @@ import org.duncan.entity.Model;
 
 /**
  * @author crash pointer
- * <p>
- * This interface defines all required methods for model user interface.
- * All methods must be implement.
- * </p>
+ * <p>This class provides database access for the models.</p>
+ * <p>All methods must be implemented by extended subclasses.</p>
  */
 public interface IModelDAO {
 	
 	/**
-	 * <p>This method fetch all records from models table.</p>
+	 * <p>Fetch all the models.</p>
 	 * @return List
 	 */
 	public List<Model> getAllModels();
 	
 	/**
-	 * <p>
-	 * This method fetch single record from models table.
-	 * Id field pass as parameter. It is a unique field. 
-	 * </p>
+	 * <p>Fetch a model by a id.</p>
 	 * @param id
 	 * @return Model
 	 */
 	public Model getModelById(int id);
 	
 	/**
+	 * <p>Fetch model list by a brand.</p>
 	 * @param brandId
 	 * @return List
 	 */
 	public List<Model> getModelListByBrandId(int brandId);	
 	
 	/**
-	 * <p>This method is used to search by string in all records.</p>
-	 * @param name
-	 * @return List<Model>
-	 */
-	public List<Model> findModelByName(String name);
-	
-	/**
 	 * <p>This method is used to search in all records.</p>
 	 * @param name
 	 * @param brandId
-	 * @return List<Model>
+	 * @return List
 	 */
 	public List<Model> findModel(String name, int brandId);
 	
@@ -67,4 +56,5 @@ public interface IModelDAO {
 	 * @param id
 	 */
 	public void deleteModel(int id);
+	
 }

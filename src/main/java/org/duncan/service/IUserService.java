@@ -4,20 +4,21 @@ import org.duncan.entity.User;
 
 /**
  * @author crash pointer
- * This interface defines all required methods for users.
+ * <p>Provides bridge between controller and database access layer.</p>
  */
 public interface IUserService {
 	
 	/**
-	 * This method is used to search in all users.
+	 * <p>Search into all the users.</p>
 	 * @param email
 	 * @return User
 	 */
 	public User findUser(String email);
 	
 	/**
-	 * This method is used to add a new user.
+	 * <p>Add a new user.</p>
 	 * @param user
 	 */
 	public void saveUser(User user);
+	
 }

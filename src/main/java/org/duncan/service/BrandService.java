@@ -7,6 +7,10 @@ import org.duncan.entity.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author crash pointer
+ * <p>Provides bridge between controller and database access layer.</p>
+ */
 @Service
 public class BrandService implements IBrandService {
 	

@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author crash pointer
+ * <p>Provides bridge between controller and database access layer.</p>
+ */
 @Service("userService")
 public class UserService implements IUserService {
 

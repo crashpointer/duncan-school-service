@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.duncan.entity.Vehicle;
 
+/**
+ * @author crash pointer
+ * <p>Implements all methods of interface vehicle database access.</p>
+ */
 @Transactional
 @Repository
 public class VehicleDAO implements IVehicleDAO {
@@ -19,7 +23,7 @@ public class VehicleDAO implements IVehicleDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Vehicle> getAllVehicles() {
-		String hql = "FROM Vehicle as v ORDER BY v.id desc";
+		String hql = "FROM Vehicle as v JOIN FETCH v.model ORDER BY v.id desc";
 		return (List<Vehicle>) entityManager.createQuery(hql)
 				.setMaxResults(30)
 				.getResultList();
@@ -40,6 +44,10 @@ public class VehicleDAO implements IVehicleDAO {
 		Vehicle v = getVehicleById(vehicle.getId());
 		v.setNickname(vehicle.getNickname());
 		v.setPlate(vehicle.getPlate());
+		v.setModel(vehicle.getModel());
+		v.setYear(vehicle.getYear());
+		v.setColor(vehicle.getColor());
+		v.setActive(vehicle.getActive());
 		entityManager.flush();
 	}
 
@@ -50,63 +58,37 @@ public class VehicleDAO implements IVehicleDAO {
 
 	@Override
 	public boolean vehicleExists(String nickname, String plate) {
-		String hql = "FROM Vehicle as v WHERE v.nickname = ? or v.plate = ?";
-		int count = entityManager.createQuery(hql).setParameter(1, nickname)
-		              .setParameter(2, plate).getResultList().size();
-		
-		return count > 0 ? true : false;
-	}
+		String hql = "FROM Vehicle as v WHERE lower(v.nickname) = lower(?) or lower(v.plate) = lower(?)";
+		int count = entityManager.createQuery(hql)
+				.setParameter(1, nickname)
+				.setParameter(2, plate)
+				.getResultList().size();
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Vehicle> findVehicleByNicknameWithPlate(String nickname, String plate) {
-		String hql = "FROM Vehicle as v WHERE lower(v.nickname) like lower(?) and lower(v.plate) like lower(?)";
-		return (List<Vehicle>) entityManager.createQuery(hql)
-				.setParameter(1, "%" + nickname + "%")
-				.setParameter(2, "%" + plate + "%")
-				.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Vehicle> findVehicleByNickname(String nickname) {
-		String hql = "FROM Vehicle as v WHERE lower(v.nickname) like lower(?)";
-		return (List<Vehicle>) entityManager.createQuery(hql)
-				.setParameter(1, "%" + nickname + "%")
-				.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Vehicle> findVehicleByModelId(String nickname, String plate, int modelId) {
-		String hql = "FROM Vehicle as v WHERE lower(v.nickname) like lower(?) and lower(v.plate) like lower(?) and v.modelId = ?";
-		return (List<Vehicle>) entityManager.createQuery(hql)
-				.setParameter(1, "%" + nickname + "%")
-				.setParameter(2, "%" + plate + "%")
-				.setParameter(3, modelId)
-				.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Vehicle> findVehicleByTypeOfVehicle(String nickname, String plate, byte typeId) {
-		String hql = "FROM Vehicle as v WHERE lower(v.nickname) like lower(?) and lower(v.plate) like lower(?) and v.typeOfVehicle = ?";
-		return (List<Vehicle>) entityManager.createQuery(hql)
-				.setParameter(1, "%" + nickname + "%")
-				.setParameter(2, "%" + plate + "%")
-				.setParameter(3, typeId)
-				.getResultList();
+		return count != 0;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Vehicle> findVehicle(String nickname, String plate, int modelId, byte typeId) {
-		String hql = "FROM Vehicle as v WHERE lower(v.nickname) like lower(?) and lower(v.plate) like lower(?) and v.modelId = ? and v.typeOfVehicle = ?";
+		String hql = "FROM Vehicle as v JOIN FETCH v.model WHERE lower(v.nickname) like lower(?) and lower(v.plate) like lower(?) %s ORDER BY v.id desc";
+		if(modelId > 0){
+			hql = String.format(hql, "and v.model.id = ? %s");
+		} else{
+			hql = String.format(hql, "and (v.model.id = ? or 1=1) %s");
+		}
+		
+		if(typeId > 0){
+			hql = String.format(hql, "and v.typeOfVehicle = ?");
+		} else{
+			hql = String.format(hql, "and (v.typeOfVehicle = ? or 1 = 1)");
+		}
+		
 		return (List<Vehicle>) entityManager.createQuery(hql)
 				.setParameter(1, "%" + nickname + "%")
 				.setParameter(2, "%" + plate + "%")
 				.setParameter(3, modelId)
 				.setParameter(4, typeId)
+				.setMaxResults(30)
 				.getResultList();
 	}
 

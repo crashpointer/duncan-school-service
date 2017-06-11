@@ -4,15 +4,53 @@ import java.util.List;
 
 import org.duncan.entity.Vehicle;
 
+/**
+ * @author crash pointer
+ * <p>Provides bridge between controller and database access layer.</p>
+ */
 public interface IVehicleService {    
+	
+	/**
+	 * @return List
+	 */
 	public List<Vehicle> getAllVehicles();
-	public List<Vehicle> findVehicleByNicknameWithPlate(String nickname, String plate);
-    public List<Vehicle> findVehicleByNickname(String nickname);
-    public List<Vehicle> findVehicleByModelId(String nickname, String plate, int modelId);
-    public List<Vehicle> findVehicleByTypeOfVehicle(String nickname, String plate, byte typeId);
-    public List<Vehicle> findVehicle(String nickname, String plate, int modelId, byte typeId);
-    public Vehicle getVehicleById(int id);
-    public boolean saveVehicle(Vehicle vehicle);
-    public void updateVehicle(Vehicle vehicle);
-    public void deleteVehicle(int id);
+    
+	/**
+	 * @param nickname
+	 * @param plate
+	 * @param modelId
+	 * @param typeId
+	 * @return List
+	 */
+	public List<Vehicle> findVehicle(String nickname, String plate, int modelId, byte typeId);
+    
+	/**
+	 * @param id
+	 * @return Vehicle
+	 */
+	public Vehicle getVehicleById(int id);
+	
+	/**
+	 * @param nickname
+	 * @param plate
+	 * @return boolean
+	 */
+	public boolean vehicleExists(String nickname, String plate);
+    
+	/**
+	 * @param vehicle
+	 * @return boolean
+	 */
+	public boolean saveVehicle(Vehicle vehicle);
+    
+	/**
+	 * @param vehicle
+	 */
+	public void updateVehicle(Vehicle vehicle);
+    
+	/**
+	 * @param id
+	 */
+	public void deleteVehicle(int id);
+	
 }
